@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!-- 	<!DOCTYPE html>
 	<html>
 	    <head>
 	        <meta charset="utf-8">
@@ -18,3 +18,57 @@
 	        config 用の web ページです。
 	    </body>
 	</html>
+ -->
+
+<head>
+    <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+</head>
+<body>
+    <button onclick="(document.getElementById('icon').src = '/images/iconGray.png'); colorClickGray()">Select Gray</button>
+    <img id="icon" src="/images/teamsIcon.png" alt="icon" style="width:100px" />
+    <button onclick="(document.getElementById('icon').src = '/images/iconRed.png'); colorClickRed()">Select Red</button>
+
+    <script>
+        microsoftTeams.initialize();
+        let saveGray = () => {
+            microsoftTeams.settings.registerOnSaveHandler((saveEvent) => {
+                microsoftTeams.settings.setSettings({
+                    websiteUrl: "https://himiyo3in.github.io/temp01/",
+                    contentUrl: "https://himiyo3in.github.io/temp01/",
+                    entityId: "grayIconTab",
+                    suggestedDisplayName: "MyNewTab"
+                });
+                saveEvent.notifySuccess();
+            });
+        }
+        let saveRed = () => {
+            microsoftTeams.settings.registerOnSaveHandler((saveEvent) => {
+                microsoftTeams.settings.setSettings({
+                    websiteUrl: "https://www2.bing.com/",
+                    contentUrl: "https://www2.bing.com/",
+                    entityId: "redIconTab",
+                    suggestedDisplayName: "MyNewTab"
+                });
+                saveEvent.notifySuccess();
+            });
+        }
+
+        let gr = document.getElementById("gray").style;
+        let rd = document.getElementById("red").style;
+
+        const colorClickGray = () => {
+            gr.display = "block";
+            rd.display = "none";
+            microsoftTeams.settings.setValidityState(true);
+            saveGray()
+        }
+
+        const colorClickRed = () => {
+            rd.display = "block";
+            gr.display = "none";
+            microsoftTeams.settings.setValidityState(true);
+            saveRed();
+        }
+    </script>
+    ...
+</body>
